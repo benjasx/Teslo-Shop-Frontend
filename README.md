@@ -1,54 +1,78 @@
-# React + TypeScript + Vite
+# Teslo Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto de ejemplo: tienda online creada con React, TypeScript y Vite.
 
-Currently, two official plugins are available:
+## Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Aplicación de catálogo/tienda (front-end) para propósitos educativos y de demostración.
+Incluye layouts de administración y tienda, componentes reutilizables y mocks de datos.
 
-## Expanding the ESLint configuration
+## Características
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Estructura modular con rutas de tienda y administración
+- Componentes UI reutilizables (botones, inputs, tablas, etc.)
+- Páginas de ejemplo: home, categorías, administración de productos y dashboard
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Tecnologías
+
+- React
+- TypeScript
+- Vite
+- Tailwind / CSS (según el proyecto)
+
+## Requisitos
+
+- Node.js 16+ y npm o pnpm
+
+## Instalación
+
+1. Clonar el repositorio
+
+```bash
+git clone <repo-url>
+cd teslo-shop
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Instalar dependencias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
+# o
+pnpm install
 ```
+
+## Scripts útiles
+
+- `npm run dev` — Inicia el servidor de desarrollo (Vite)
+- `npm run build` — Genera la versión de producción
+- `npm run preview` — Previsualiza la build de producción
+- `npm run lint` — Ejecuta linters/configuración (si aplica)
+
+## Estructura principal
+
+- `src/` — Código fuente
+  - `admin/` — Componentes, layouts y páginas del panel de administración
+  - `auth/` — Páginas y layouts de autenticación
+  - `shop/` — Páginas, layouts y componentes de la tienda
+  - `lib/` — Utilidades compartidas
+  - `mocks/` — Datos de ejemplo
+
+Revisa las páginas y componentes bajo `src/` para entender la organización.
+
+## Desarrollo
+
+- Añade componentes bajo la carpeta correspondiente (`admin`, `shop`, `auth`).
+- Mantén estilos y tokens globales en `index.css` o la configuración de Tailwind.
+
+## Contribuir
+
+1. Crea una rama feature/fix
+2. Abre un pull request describiendo los cambios
+
+## Licencia
+
+Usa la licencia apropiada para tu proyecto (MIT por defecto si no hay otra).
+
+## Contacto
+
+Para dudas o mejoras, abre un issue en el repositorio.
