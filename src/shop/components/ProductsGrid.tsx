@@ -88,27 +88,33 @@ export const ProductsGrid = ({ products }: Props) => {
           )}
 
           {/* Products Grid */}
-          <div className="flex-1">
-            <div
-              className={
-                viewMode === "grid"
-                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                  : "space-y-4"
-              }
-            >
-              {products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  id={product.id}
-                  name={product.title}
-                  price={product.price}
-                  image={product.images[0]}
-                  category={product.gender}
-                  sizes={product.sizes}
-                />
-              ))}
+          {products.length !== 0 ? (
+            <div className="flex-1">
+              <div
+                className={
+                  viewMode === "grid"
+                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                    : "space-y-4"
+                }
+              >
+                {products.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    id={product.id}
+                    name={product.title}
+                    price={product.price}
+                    image={product.images[0]}
+                    category={product.gender}
+                    sizes={product.sizes}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <p className="text-center flex-1 text-gray-500 items-center">
+              No hay nada para mostar con esos filtros
+            </p>
+          )}
         </div>
       </div>
     </section>
