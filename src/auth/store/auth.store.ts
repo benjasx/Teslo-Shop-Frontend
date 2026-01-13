@@ -1,5 +1,5 @@
-import type { User } from "@/interfaces/user.interface";
 import { create } from "zustand";
+import type { User } from "@/interfaces/user.interface";
 import { loginAction } from "../actions/login.actions";
 import { checkAuthAction } from "../actions/check-auth.action";
 
@@ -11,13 +11,16 @@ type AuthState = {
   token: string | null;
   authStatus: AuthStatus;
 
+  // Getters
+  isAdmin: () => boolean;
+
   // Actions
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   checkAuthStatus: () => Promise<boolean>;
 };
 
-export const useAuthStore = create<AuthState>()((set) => ({
+export const useAuthStore = create<AuthState>()((set, get) => ({
   // Implementacion del store
   user: null,
   token: null,
@@ -37,6 +40,14 @@ export const useAuthStore = create<AuthState>()((set) => ({
     }
   },
 
+  //Getters
+  isAdmin: () => {
+    //return !!get().user?.roles.includes("admin");
+    const roles = get().user?.roles || [];
+    return roles.includes("admin");
+  },
+
+  //Actions
   logout: () => {
     localStorage.removeItem("token");
     set({ user: null, token: null, authStatus: "not-autenticated" });
