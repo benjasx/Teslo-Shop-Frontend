@@ -33,7 +33,7 @@ export const TesloShopApp = () => {
     <QueryClientProvider client={queryClient}>
       <Toaster />
       <CheckAuthProvider>
-        <RouterProvider router={appRouter} />;
+        <RouterProvider router={appRouter} />
       </CheckAuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
