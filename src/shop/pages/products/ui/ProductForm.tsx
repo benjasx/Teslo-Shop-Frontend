@@ -12,6 +12,7 @@ interface Props {
   title: string;
   subTitle: string;
   product: Product;
+  isPending: boolean;
 
   //Metohd
   onSubmit: (productLike: Product) => Promise<void>;
@@ -19,9 +20,13 @@ interface Props {
 
 const availableSizes: Size[] = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
 
-export const ProductForm = ({ title, subTitle, product, onSubmit }: Props) => {
-  console.log({ product });
-
+export const ProductForm = ({
+  title,
+  subTitle,
+  product,
+  onSubmit,
+  isPending,
+}: Props) => {
   const [dragActive, setDragActive] = useState(false);
   const {
     register,
@@ -100,7 +105,11 @@ export const ProductForm = ({ title, subTitle, product, onSubmit }: Props) => {
             </Link>
           </Button>
 
-          <Button>
+          <Button
+            disabled={isPending}
+            type="submit"
+            className="flex items-center gap-2"
+          >
             <SaveAll className="w-4 h-4" />
             Guardar cambios
           </Button>

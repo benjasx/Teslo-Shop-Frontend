@@ -52,7 +52,7 @@ export const ProductsAdminPage = () => {
         </TableHeader>
         <TableBody>
           {data?.products.map((product) => (
-            <TableRow>
+            <TableRow key={product.id}>
               <TableCell className="font-medium">
                 {product.id.substring(0, 7)}
               </TableCell>
@@ -64,11 +64,11 @@ export const ProductsAdminPage = () => {
                   className="w-20 h-20 object-cover rounded-md"
                 />
               </TableCell>
-              <Link to={`/admin/products/${product.id}`}>
-                <TableCell className="hover:text-blue-500 underline">
+              <TableCell className="hover:text-blue-500 underline">
+                <Link to={`/admin/products/${product.id}`}>
                   {product.title}
-                </TableCell>
-              </Link>
+                </Link>
+              </TableCell>
               <TableCell>{currencyFormatter(product.price)}</TableCell>
               <TableCell>{product.gender}</TableCell>
               <TableCell>{product.stock}</TableCell>
