@@ -12,11 +12,14 @@ interface Props {
   title: string;
   subTitle: string;
   product: Product;
+
+  //Metohd
+  onSubmit: (productLike: Product) => Promise<void>;
 }
 
 const availableSizes: Size[] = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
 
-export const ProductForm = ({ title, subTitle, product }: Props) => {
+export const ProductForm = ({ title, subTitle, product, onSubmit }: Props) => {
   console.log({ product });
 
   const [dragActive, setDragActive] = useState(false);
@@ -36,10 +39,6 @@ export const ProductForm = ({ title, subTitle, product }: Props) => {
   const selectetdStock = watch("stock");
 
   const labelInputRef = useRef<HTMLInputElement>(null);
-
-  const onSubmit = (productLike: Product) => {
-    console.log("onSubmit", productLike);
-  };
 
   const addTag = () => {
     const newTag = labelInputRef.current!.value;
@@ -470,7 +469,6 @@ export const ProductForm = ({ title, subTitle, product }: Props) => {
                         : "Sin stock"}
                   </span>
                 </div>
-
                 <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                   <span className="text-sm font-medium text-slate-700">
                     Imágenes
