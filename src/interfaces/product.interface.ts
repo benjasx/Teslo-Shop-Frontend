@@ -14,5 +14,5 @@ export interface Product {
   user: User;
 }
 
-export type Size = "XS" | "S" | "m" | "L" | "XL" | "XXS";
+export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXS" | "XXL";
 export type Gender = "kid" | "men" | "Women" | "unisex";
