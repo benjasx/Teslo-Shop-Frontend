@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import type { Product, Size } from "@/interfaces/product.interface";
 
@@ -15,7 +15,13 @@ interface Props {
   isPending: boolean;
 
   //Metohd
-  onSubmit: (productLike: Product) => Promise<void>;
+  onSubmit: (
+    productLike: Partial<Product> & { files?: File[] },
+  ) => Promise<void>;
+}
+
+interface forminputs extends Product {
+  files?: File[];
 }
 
 const availableSizes: Size[] = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
@@ -35,15 +41,20 @@ export const ProductForm = ({
     getValues,
     setValue,
     watch,
-  } = useForm({
+  } = useForm<forminputs>({
     defaultValues: product,
   });
+
+  useEffect(() => {
+    setFiles([]);
+  }, [product]);
 
   const selectetdSizes = watch("sizes");
   const selectetdTags = watch("tags");
   const selectetdStock = watch("stock");
 
   const labelInputRef = useRef<HTMLInputElement>(null);
+  const [files, setFiles] = useState<File[]>([]);
 
   const addTag = () => {
     const newTag = labelInputRef.current!.value;
@@ -86,13 +97,20 @@ export const ProductForm = ({
     e.stopPropagation();
     setDragActive(false);
     const files = e.dataTransfer.files;
-    console.log(files);
+    if (!files) return;
+    setFiles((prev) => [...prev, ...Array.from(files)]);
+    const currentFiles = getValues("files") || [];
+    setValue("files", [...currentFiles, ...Array.from(files)]);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    console.log(files);
+    if (!files) return;
+    setFiles((prev) => [...prev, ...Array.from(files)]);
+    const currentFiles = getValues("files") || [];
+    setValue("files", [...currentFiles, ...Array.from(files)]);
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-between items-center">
@@ -415,7 +433,7 @@ export const ProductForm = ({
                 </div>
               </div>
 
-              {/* Current Images */}
+              {/* Imágenes subidas */}
               <div className="mt-6 space-y-3">
                 <h3 className="text-sm font-medium text-slate-700">
                   Imágenes actuales
@@ -437,6 +455,27 @@ export const ProductForm = ({
                         {image}
                       </p>
                     </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Imágenes por cargar */}
+              <div
+                className={cn("mt-6 space-y-3", {
+                  hidden: files.length === 0,
+                })}
+              >
+                <h3 className="text-sm font-medium text-slate-700">
+                  Imágenes por cargar
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {files.map((file, index) => (
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      className="w-full h-32 object-cover rounded-lg border border-slate-200"
+                    />
                   ))}
                 </div>
               </div>
